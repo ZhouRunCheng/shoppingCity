@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue-Resource插件使用</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <script src="../node_modules/vue-resource/dist/vue-resource.js"></script>
+</head>
+<body>
+<div id="app">
+  <h1>Vue-Resource插件的三种请求</h1>
+  <p>
+    <button @click="gets">Get请求</button>
+    <button @click="posts">Post请求</button>
+<!--    <button @click="jsonp">Jsonp请求</button>-->
+  </p>
+  <p>
+    <span>
+      {{msg}}
+    </span>
+  </p>
+</div>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        msg: 'Vue init.'
+      },
+      methods: {
+        get() {
+          this.$http.get("../package.json",{
+            params: {
+              userId: 121
+            },
+            headers: {
+              token: "abcd"
+            }
+          }).then(res => {
+            this.msg = res.data
+          },error => {
+            this.msg = error
+          })
+        },
+        post() {
+          this.$http.post("../package.json",{
+            userId: 111
+          },{
+            headers: {
+              token: "efgi"
+            }
+          }).then(res => {
+            this.msg = res.data
+          },error => {
+            this.msg = error
+          })
+        }/*,
+        jsonp() {
+          this.$http.jsonp(this.apiUrl).then(res => {
+            console.log(res.data);
+          });*/
+        }
+      }
+    });
+  </script>
+</body>
+</html>

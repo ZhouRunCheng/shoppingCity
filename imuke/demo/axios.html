@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Axios插件使用</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+  <script src="../node_modules/axios/dist/axios.js"></script>
+</head>
+<body>
+<div id="app">
+  <h1>Axios插件使用</h1>
+  <p>
+    <button @click="gets">Get请求</button>
+    <button @click="posts">Post请求</button>
+    <button @click="https">通过配置请求</button>
+  </p>
+  <p>
+    <span>
+      {{msg}}
+    </span>
+  </p>
+</div>
+
+  <script>
+    new Vue({
+      el: "#app",
+      data: {
+        msg: 'Vue init.'
+      },
+      methods: {
+        gets() {
+          axios.get("../package.json",{
+            params: {
+              userId: 121
+            },
+            headers: {
+              token: "abcd"
+            }
+          }).then(res => {
+            this.msg = res.data
+          },error => {
+            this.msg = error
+          })
+        },
+        posts() {
+          axios.post("../package.json",{
+            userId: 111
+          },{
+            headers: {
+              token: "efgi"
+            }
+          }).then(res => {
+            this.msg = res.data
+          },error => {
+            this.msg = error
+          })
+        },
+        https() {
+          axios({
+            url: "../package.json",
+            method: "post",
+            data: { //如果是post请求，传递的是body参数，则用data方式传参
+              userId: 101
+            },
+            params: {  //如果是get请求，传递的是路由参数，则用params方式传参
+              userId: 102
+            },
+            headers: {
+              token: "http-test"
+            }
+          }).then(res => {
+            this.msg = res.data;
+          }, error => {
+            this.msg = error;
+          })
+        }
+      }
+    });
+  </script>
+</body>
+</html>

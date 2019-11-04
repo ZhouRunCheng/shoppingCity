@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ES6基础语法</title>
+  <script src="../node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <h1>ES6基础语法</h1>
+  <p><span>{{count}}</span></p>
+  <p>
+    <button @click="inc">++</button>
+    <button @click="dec">--</button>
+    <button @click="count1(1,2,3)">动态参数求和（传统做法）</button>
+    <button @click="count2(1,2,3)">动态参数求和（ES6做法Rest参数）</button>
+  </p>
+</div>
+<script>
+  var vue = new Vue({
+    el: '#app',
+    data: {
+      count: 0
+    },
+    methods: {
+      inc() {
+        this.count++
+      },
+      dec() {
+        this.count--
+      },
+      count1(a,b,c) {
+        this.count = 0
+        if(a) this.count+=a;
+        if(b) this.count+=b;
+        if(c) this.count+=c;
+      },
+      count2(...m) {
+        this.count = 0
+        for(var i of m){
+          this.count+=i
+        }
+      }
+    }
+  })
+</script>
+</body>
+</html>
